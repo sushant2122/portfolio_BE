@@ -8,7 +8,7 @@ const AdminStatRouter = require("express").Router();
 AdminStatRouter.get('/', loginCheck, checkAccess('Admin'), adminStatsCtrl.getAdminStats);
 
 // Message routes
-AdminStatRouter.get('/messages/recent', loginCheck, checkAccess('Admin'), adminStatsCtrl.getRecentMessages);
+AdminStatRouter.get('/messages', loginCheck, checkAccess('Admin'), adminStatsCtrl.getRecentMessages);
 
 module.exports = AdminStatRouter;
 

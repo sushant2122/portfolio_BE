@@ -187,7 +187,7 @@ myEvent.on(EventName.FORGET_PASSWORD, async (data) => {
             sub: "🔐 Reset Your Password - Sushant Paudyal Portfolio",
             html: getEmailTemplate("Reset Password", content)
         });
-        console.log("Forgot password email sent successfully to:", data.email);
+
     } catch (exception) {
         console.error("Failed to send forgot password email:", exception);
         // Don't exit process, just log error
@@ -289,7 +289,6 @@ myEvent.on(EventName.CONTACT_US, async (data) => {
             sub: `📧 New Contact Form: ${data.subject || 'Inquiry'} from ${data.name}`,
             html: getEmailTemplate("New Contact Form Submission", content)
         });
-        console.log("Contact Us email sent successfully to admin");
 
         // Optional: Send auto-reply to user
         await sendAutoReplyToUser(data);
@@ -331,7 +330,7 @@ const sendAutoReplyToUser = async (data) => {
             sub: "Thank you for reaching out - Sushant Paudyal",
             html: getEmailTemplate("Thank You for Reaching Out", userContent)
         });
-        console.log("Auto-reply sent to user:", data.email);
+
     } catch (error) {
         console.error("Failed to send auto-reply:", error);
     }

@@ -13,7 +13,7 @@ const createPortfolioDTO = Joi.object({
 const updatePortfolioDTO = Joi.object({
     portfolio_img: Joi.string().optional(),
     name: Joi.string().max(255).optional(),
-    live_URL: Joi.string().max(255).uri().optional(),
+    live_URL: Joi.string().max(255).optional(),
     git_URL: Joi.string().max(255).uri().optional(),
     description: Joi.string().optional().min(10),
 });

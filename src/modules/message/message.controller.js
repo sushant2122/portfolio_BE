@@ -29,6 +29,7 @@ class MessageController {
 
             // Emit event with complete data
             myEvent.emit(EventName.CONTACT_US, {
+                name: data.name,
                 email: data.email,
                 subject: data.subject || "General Inquiry",
                 message: data.message,
@@ -38,6 +39,7 @@ class MessageController {
             res.json({
                 result: {
                     message_id: message.message_id,
+                    name: message.name,
                     email: message.email,
                     subject: message.subject,
                     message: message.message,

@@ -6,7 +6,7 @@ const experienceSchema = {
         autoIncrement: true,
         primaryKey: true
     },
-    organization_name: {
+    title: {
         type: DataTypes.STRING(255),
         allowNull: false
     },
