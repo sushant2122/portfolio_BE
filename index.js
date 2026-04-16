@@ -3,7 +3,7 @@ const app = require("./src/config/express.config")
 const server = http.createServer(app)
 
 
-server.listen(9005, "0.0.0.0", (err) => {
+server.listen(3000, "0.0.0.0", (err) => {
     if (!err) {
         console.log("✅ Server is running")
         console.log("✅ ctrl+c to disconnect")
