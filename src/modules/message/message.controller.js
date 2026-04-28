@@ -47,7 +47,7 @@ class MessageController {
 
                 },
                 meta: null,
-                message: "Message created successfully.",
+                message: "Message sent successfully.",
                 status: "MESSAGE_CREATION_SUCCESS"
             });
         } catch (exception) {
