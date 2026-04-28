@@ -7,6 +7,7 @@ const MessageRouter = require('../modules/message/message.router');
 const ExperienceRouter = require('../modules/experience/experience.router');
 const SkillRouter = require('../modules/skill/skill.router');
 const PortfolioRouter = require('../modules/portfolio/portfolio.router');
+const CertRouter = require('../modules/certification/cert.router');
 
 
 // Route for checking health status
@@ -19,7 +20,7 @@ router.use('/message', MessageRouter);
 router.use('/experience', ExperienceRouter);
 router.use('/portfolio', PortfolioRouter);
 router.use('/skill', SkillRouter);
-
+router.use('/cert', CertRouter);
 
 router.use('/stat', AdminStatRouter);
 

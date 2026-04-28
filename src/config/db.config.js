@@ -7,6 +7,7 @@ const { createMessageModel } = require("../modules/message/message.model");
 const { createSkillModel } = require("../modules/skill/skill.model");
 const { createExperienceModel } = require("../modules/experience/experience.model");
 const { createPortfolioModel } = require("../modules/portfolio/portfolio.model");
+const { createCertificationModel } = require("../modules/certification/cert.model");
 
 const sequelize = new Sequelize(
     process.env.PG_DATABASE,
@@ -24,7 +25,7 @@ const User = createUserModel(sequelize);
 
 const Experience = createExperienceModel(sequelize);
 const Portfolio = createPortfolioModel(sequelize);
-
+const Cert = createCertificationModel(sequelize);
 const Message = createMessageModel(sequelize);
 
 
@@ -57,7 +58,8 @@ module.exports = {
     Portfolio,
     Skill,
     Message,
-    Experience
+    Experience,
+    Cert
 
 
 };
