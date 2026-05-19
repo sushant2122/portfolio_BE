@@ -10,7 +10,7 @@ const rateLimit = require('express-rate-limit');
 const messageLimiter = rateLimit(
     {
         windowMs: 30 * 60 * 1000, // 30 minutes
-        max: 3, // Limit each IP to 3 requests per windowMs
+        max: 20, // Limit each IP to 3 requests per windowMs
         message: {
             status: "RATE_LIMIT_EXCEEDED",
             message: "Too many requests. Please try again later."
