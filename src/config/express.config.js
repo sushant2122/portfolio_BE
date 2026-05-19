@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("../middleware/events.middleware")
 const express = require('express');
 require("./db.config"); // for initializing the database 
 const router = require('./router.config');
