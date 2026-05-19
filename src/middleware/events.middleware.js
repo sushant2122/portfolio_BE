@@ -1,7 +1,8 @@
 const eventEmitter = require("events");
 const myEvent = new eventEmitter();
 const Mailsvc = require("../services/mail.service");
-
+console.log("MAIL SERVICE:", Mailsvc);
+console.log("MAIL SEND:", Mailsvc.mailSend);
 const EventName = {
     FORGET_PASSWORD: "forgotpassword",
     PASSWORD_RESET_SUCCESSFUL: "passwordresetsuccess",

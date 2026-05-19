@@ -6,12 +6,15 @@ const router = require('./router.config');
 const app = express();
 const cors = require("cors");
 
+app.set("trust proxy", 1);
+
 app.use(cors()) //used for the connection of frontend and backend  cross origin resource sharing 
 // Body parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes verisoning
+
 app.use("/api/v1", router);
 
 // Error handling for image
