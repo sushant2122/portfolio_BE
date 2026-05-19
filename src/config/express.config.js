@@ -4,9 +4,10 @@ const express = require('express');
 require("./db.config"); // for initializing the database 
 const router = require('./router.config');
 const app = express();
+app.set('trust proxy', 1);
 const cors = require("cors");
 
-app.set("trust proxy", 1);
+
 
 app.use(cors()) //used for the connection of frontend and backend  cross origin resource sharing 
 // Body parsers

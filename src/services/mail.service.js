@@ -1,61 +1,22 @@
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
 class MailService {
-    transport;
-
     constructor() {
-        try {
-            let connectionOps = {
-                host: process.env.SMTP_HOST,
-                port: process.env.SMTP_PORT,
-                auth: {
-                    user: process.env.SMTP_USER,
-                    pass: process.env.SMTP_PASSWORD
-                }
-            }
-
-            // For Gmail, use service instead of host/port
-            if (process.env.SMTP_PROVIDER === 'gmail') {
-                connectionOps = {
-                    service: 'gmail',
-                    auth: {
-                        user: process.env.SMTP_USER,
-                        pass: process.env.SMTP_PASSWORD
-                    }
-                }
-            } else {
-                // For other providers, add secure flag based on port
-                connectionOps.secure = process.env.SMTP_PORT == 465; // true for 465, false for other ports
-            }
-
-            this.transport = nodemailer.createTransport(connectionOps);
-
-            // Verify connection
-            this.transport.verify((error, success) => {
-                if (error) {
-                    console.log("❌ Email Server connection failed:", error);
-                } else {
-                    console.log("✅ Email Server connected successfully.");
-                }
-            });
-        } catch (exception) {
-            console.log("❌ Error connecting mail service....", exception);
-            throw exception;
-        }
+        this.resend = new Resend(process.env.RESEND_API_KEY);
+        console.log("✅ Resend mail service initialized");
     }
 
     mailSend = async ({ to, sub, message, html, text }) => {
         try {
-            const mailOptions = {
+            const response = await this.resend.emails.send({
+                from: process.env.SMTP_FROM || "onboarding@resend.dev",
                 to: to,
-                from: process.env.SMTP_FROM || process.env.SMTP_USER, // Fixed: SMTP_FORM to SMTP_FROM
-                subject: sub, // Fixed: sub to subject
-                text: text || message?.replace(/<[^>]*>/g, '') || "", // Plain text version
-                html: html || message // HTML version
-            };
+                subject: sub,
+                html: html || message,
+                text: text || "",
+            });
 
-            const response = await this.transport.sendMail(mailOptions);
-            console.log("✅ Email sent successfully to:", to);
+            console.log("✅ Email sent successfully to:", to, "| ID:", response.data?.id);
             return response;
         } catch (exception) {
             console.error("❌ Error sending mail:", exception);
@@ -67,19 +28,20 @@ class MailService {
         }
     }
 
-    // Optional: Send email with attachment
     mailSendWithAttachment = async ({ to, sub, message, attachments }) => {
         try {
-            const mailOptions = {
+            const response = await this.resend.emails.send({
+                from: process.env.SMTP_FROM || "onboarding@resend.dev",
                 to: to,
-                from: process.env.SMTP_FROM || process.env.SMTP_USER,
                 subject: sub,
                 html: message,
-                attachments: attachments
-            };
+                attachments: attachments?.map(a => ({
+                    filename: a.filename,
+                    content: a.content,
+                })),
+            });
 
-            const response = await this.transport.sendMail(mailOptions);
-            console.log("✅ Email with attachment sent successfully to:", to);
+            console.log("✅ Email with attachment sent to:", to);
             return response;
         } catch (exception) {
             console.error("❌ Error sending mail with attachment:", exception);
